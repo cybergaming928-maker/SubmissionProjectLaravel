@@ -1,6 +1,7 @@
 <?php 
  
 use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\ProdukController;
  
 Route::get('/', function () { 
     return view('welcome'); 
@@ -57,6 +58,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 }); 
 
 Route::redirect('/beranda', '/'); 
+
+    Route::get('/produk', [ProdukController::class, 'index'])
+         ->name('produk.index');
+
+    Route::get('/produk/{id}', [ProdukController::class, 'show'])
+         ->whereNumber('id')
+         ->name('produk.show');
+
 
 // Dieksekusi bila tidak ada route yang cocok (letakkan paling bawah) 
 Route::fallback(function () { 
